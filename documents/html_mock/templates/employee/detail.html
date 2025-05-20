@@ -99,13 +99,13 @@
                   <tr>
                     <th nowrap>従業員名</th>
                     <td>
-                      <span>山田花子</span>
+                      <span th:text="${employee.name}">山田花子</span>
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>写真</th>
                     <td>
-                      <img src="../../static/img/e2.png" />
+                      <img th:src="../../static/img/${employee.image}"/>
                     </td>
                   </tr>
                   <tr>
@@ -169,13 +169,13 @@
                         style="color: red"
                         for="dependentsCount"
                       ></label>
-                      <input type="hidden" name="id" />
+                      <input type="hidden" name="id" value="${employee.id}"/>
                       <input
                         type="text"
                         name="dependentsCount"
                         id="dependentsCount"
                         class="form-control"
-                        value="3"
+                        value="${employee.dependentsCount}"
                       />
                     </td>
                   </tr>

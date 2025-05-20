@@ -63,8 +63,7 @@
                 >山田さん</span
               >こんにちは！ &nbsp;&nbsp;&nbsp;
               <a href="../administrator/login.html" class="navbar-link"
-                >ログアウト</a
-              >
+                 th:href="@{/logout}">ログアウト</a>
             </p>
           </div>
           <!-- /.navbar-collapse -->
@@ -96,43 +95,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr th:each="employee : ${employeeList}">
               <td>
-                <a href="detail.html">
-                  <span>山田太郎</span>
+                <a href="detail.html"
+                   th:href="@{/employee/showDetail?id=} + ${employee.id}">
+                  <span th:text="${employee.name}">山田太郎</span>
                 </a>
               </td>
               <td>
-                <span>2016/12/1</span>
+                <span th:text="${#dates.format(employee.hireDate,'yyyy-MM-dd')}">2018-10-29</span>
               </td>
               <td>
-                <span>3人</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="detail.html">
-                  <span>山田太郎</span>
-                </a>
-              </td>
-              <td>
-                <span>2016/12/1</span>
-              </td>
-              <td>
-                <span>3人</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="detail.html">
-                  <span>山田太郎</span>
-                </a>
-              </td>
-              <td>
-                <span>2016/12/1</span>
-              </td>
-              <td>
-                <span>3人</span>
+                <span th:text="${#numbers.formatInteger(employee.dependentsCount, 1)}">3人</span>人
               </td>
             </tr>
             </tbody>

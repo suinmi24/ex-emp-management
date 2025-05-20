@@ -43,10 +43,10 @@ public class EmployeeRepository {
      * @return 従業員一覧情報
      */
     public List<Employee> findAll(){
-        String sql = "SELECT * FROM employees ORDER BY hire_date DESC";
+        String sql = "SELECT id, name, image, gender, hire_date, mail_address, zip_code, address, telephone, salary, characteristics, dependents_count FROM employees ORDER BY hire_date DESC";
         List<Employee> employeeList = template.query(sql, EMPLOYEE_ROW_MAPPER);
         if(employeeList.isEmpty()){
-            return  employeeList;
+            return employeeList;
         }
         return employeeList;
     }
@@ -58,7 +58,7 @@ public class EmployeeRepository {
      * @return 従業員情報
      */
     public Employee findById(Integer id){
-        String sql = "SELECT * FROM employees WHERE id = :id";
+        String sql = "SELECT id, name, image, gender, hire_date, mail_address, zip_code, address, telephone, salary, characteristics, dependents_count FROM employees WHERE id = :id";
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
         Employee employee = template.queryForObject(sql, param, EMPLOYEE_ROW_MAPPER);
         return employee;
@@ -70,9 +70,9 @@ public class EmployeeRepository {
      * @param employee 更新したい従業員情報
      */
     public void update(Employee employee){
-        String sql = "UPDATE employees SET name = :name, image = :image, gender = :gender, hire_date = :hire_date, " +
-                "mail_address = :mailAddress, zip_code = :zip_code, address = :address, telephone = :telephone, " +
-                "salary = :salary, characteristic = :characteristic, dependents_count = :dependents_count WHERE id = :id";
+        String sql = "UPDATE employees SET name = :name, image = :image, gender = :gender, hire_date = :hireDate, " +
+                "mail_address = :mailAddress, zip_code = :zipCode, address = :address, telephone = :telephone, " +
+                "salary = :Salary, characteristics = :Characteristics, dependents_count = :dependentsCount WHERE id = :id";
         SqlParameterSource param = new BeanPropertySqlParameterSource(employee);
         template.update(sql, param);
     }
