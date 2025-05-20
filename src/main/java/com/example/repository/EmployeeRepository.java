@@ -12,11 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 従業員情報を表すリポジトリ.
- * 従業員情報のデータベースの操作を行う。
- * findAllメソッドで従業員一覧情報を入社日順で取得する。
- * findByIdメソッドで主キーから従業員情報を取得する。
- * updateメソッドで従業員情報を変更する。
+ * Employeesテーブルを操作するリポジトリ
  */
 @Repository
 public class EmployeeRepository {
@@ -43,7 +39,8 @@ public class EmployeeRepository {
 
     /**
      * 従業員一覧情報を入社日順(降順)で取得する.
-     * @return 従業員が存在する場合は、従業員一覧を表示し、従業員が存在しない場合は0件の従業員一覧を返す
+     *
+     * @return 従業員一覧情報
      */
     public List<Employee> findAll(){
         String sql = "SELECT * FROM employees ORDER BY hire_date DESC";
@@ -56,8 +53,9 @@ public class EmployeeRepository {
 
     /**
      * 主キーから従業員情報を取得する.
+     *
      * @param id 検索したいid
-     * @return 指定したidに該当する従業員情報を表示する
+     * @return 従業員情報
      */
     public Employee findById(Integer id){
         String sql = "SELECT * FROM employees WHERE id = :id";
@@ -68,12 +66,12 @@ public class EmployeeRepository {
 
     /**
      * 従業員情報を変更する.
-     * idカラムを除いた全従業員の全てのカラムを更新する。
+     *
      * @param employee 更新したい従業員情報
      */
     public void update(Employee employee){
         String sql = "UPDATE employees SET name = :name, image = :image, gender = :gender, hire_date = :hire_date, " +
-                "mail_address = :mail_address, zip_code = :zip_code, address = :address, telephone = :telephone, " +
+                "mail_address = :mailAddress, zip_code = :zip_code, address = :address, telephone = :telephone, " +
                 "salary = :salary, characteristic = :characteristic, dependents_count = :dependents_count WHERE id = :id";
         SqlParameterSource param = new BeanPropertySqlParameterSource(employee);
         template.update(sql, param);

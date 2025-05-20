@@ -1,10 +1,13 @@
 package com.example.controller;
 
+import com.example.domain.Administrator;
 import com.example.form.InsertAdministratorForm;
 import com.example.service.AdministratorService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -19,12 +22,26 @@ public class AdministratorController {
     private AdministratorService administratorService;
 
     /**
-     * 登録者画面に移動する.
-     * @param form 登録時に使用する管理者の情報のフォームを受け取ったら
-     * @return 管理者登録画面に移動する。
+     * 管理者情報登録画面に移動する.
+     *
+     * @param form フォーム
+     * @return 管理者情報登録画面
      */
     @GetMapping("/toInsert")
     public String toInsert(InsertAdministratorForm form){
-        return "administrator/insert.html";
+        return "administrator/insert";
+    }
+
+    /**
+     * 管理者情報を登録する.
+     * @param form フォーム
+     * @return ログイン画面
+     */
+    @PostMapping("/insert")
+    public String insert(InsertAdministratorForm form){
+        Administrator administrator = new Administrator();
+        BeanUtils.copyProperties(form, administrator);
+        administratorService.insert(administrator);
+        return "redirect:/";
     }
 }

@@ -2,7 +2,6 @@ package com.example.domain;
 
 /**
  * 管理者情報を表すドメイン.
- * ID,名前,メールアドレス,パスワードの管理者情報を表す。
  */
 
 public class Administrator {

@@ -12,10 +12,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * 管理者情報を表すリポジトリ.
- * 管理者情報のデータベースの操作を行う。
- * insertメソッドで管理者情報の挿入。
- * findByMailAddressAndPasswordメソッドでメールアドレスとパスワードから管理者情報を取得する。
+ * administratorsテーブルを操作するリポジトリ.
  */
 
 @Repository
@@ -36,10 +33,11 @@ public class AdministratorRepository {
 
     /**
      * 管理者情報を挿入する.
+     *
      * @param administrator 追加する管理者情報
      */
     public void insert(Administrator administrator){
-        String sql = "INSERT INTO administrators (name, mail_address, password) VALUES (:name, :mail_address, :password)";
+        String sql = "INSERT INTO administrators (name, mail_address, password) VALUES (:name, :mailAddress, :password)";
         SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
         template.update(sql, param);
     }
@@ -47,12 +45,13 @@ public class AdministratorRepository {
 
     /**
      * メールアドレスとパスワードから管理者情報を取得する.
+     *
      * @param mailAddress 検索するメールアドレス
      * @param password 検索するパスワード
-     * @return 該当する場合は、取得した管理者情報を返し、1件も該当するものが存在しない場合は、nullを返す。
+     * @return 管理者情報(1件も該当するものが存在しない場合は、nullを返す)
      */
     public Administrator findByMailAddressAndPassword(String mailAddress, String password) {
-        String sql = "SELECT * FROM administrators WHERE mail_address = :mail_address AND password = :password";
+        String sql = "SELECT * FROM administrators WHERE mail_address = :mailAddress AND password = :password";
         SqlParameterSource param = new MapSqlParameterSource().addValue("mail_address", mailAddress).addValue("password", password);
         try {
             return template.queryForObject(sql, param, ADMINISTRATOR_ROW_MAPPER);

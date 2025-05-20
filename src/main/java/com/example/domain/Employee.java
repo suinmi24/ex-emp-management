@@ -4,7 +4,6 @@ import java.util.Date;
 
 /**
  * 従業員情報を表すドメイン.
- * Id,名前,画像,性別,入社日,メールアドレス,郵便番号,住所,電話番号,給料,特性,扶養人数を表す。
  */
 
 public class Employee {
